@@ -106,3 +106,5 @@ venv.bak/
 nz-lotto.Rproj
 data/*
 notebooks/*
+lotto/*.json
+lotto/*.logs
