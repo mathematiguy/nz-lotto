@@ -8,7 +8,12 @@ DOCKER_ARGS ?=
 GIT_TAG ?= $(shell git log --oneline | head -n1 | awk '{print $$1}')
 LOG_LEVEL ?= INFO
 
+all: data/results_data.csv
+
 crawl: lotto/output.json
+
+data/results_data.csv: analysis/clean_data.R lotto/output.json
+	$(RUN) Rscript $<
 
 lotto/output.json:
 	$(RUN) bash -c "cd lotto && scrapy crawl lottonumbers -o output.json 2>&1 | tee output.logs | grep $(LOG_LEVEL)"
@@ -30,7 +35,7 @@ jupyter:
 			"from IPython.lib import passwd; print(passwd('$(JUPYTER_PASSWORD)'))")
 
 clean:
-	rm -f lotto/*.json lotto/*.logs
+	rm -f lotto/*.json lotto/*.logs data/*.csv
 
 .PHONY: docker
 docker:

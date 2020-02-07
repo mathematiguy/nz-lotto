@@ -19,7 +19,8 @@ results_data <- results %>%
            total_prize_pool = str_remove_all(total_prize_pool, "\\$|,")) %>%
     mutate_at(vars(starts_with("ball"), "bonus", "powerball", starts_with("strike"),
                    "draw_number", "number_of_winners"), as.integer) %>%
-    mutate_at(vars("total_prize_pool", "average_prize_per_winner"), as.numeric)
+    mutate_at(vars("total_prize_pool", "average_prize_per_winner"), as.numeric) %>%
+    arrange(draw_number)
 
 division_data <- results %>%
     future_map(function (res) {
@@ -41,4 +42,9 @@ division_data <- results %>%
            game = case_when(
                 str_detect(matches, "Powerball") ~ "powerball",
                 str_detect(matches, "Exact") ~ "strike",
-                TRUE ~ "lotto"))
+                TRUE ~ "lotto")) %>%
+    arrange(draw_number)
+
+results_data <- write_csv(here("data/results_data.csv"))
+division_data <- write_csv(here("data/division_data.csv"))
+
