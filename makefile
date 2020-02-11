@@ -1,10 +1,10 @@
 DOCKER_REGISTRY := mathematiguy
 IMAGE_NAME := $(shell basename `git rev-parse --show-toplevel`)
 IMAGE := $(DOCKER_REGISTRY)/$(IMAGE_NAME)
-RUN ?= docker run $(DOCKER_ARGS) --rm -v $$(pwd):/work -w /work -u $(UID):$(GID) $(IMAGE)
+RUN ?= docker run $(DOCKER_ARGS) -v $$(pwd):/work -w /work -u $(UID):$(GID) $(IMAGE)
 UID ?= $(shell id -u)
 GID ?= $(shell id -g)
-DOCKER_ARGS ?= 
+DOCKER_ARGS ?= --rm
 GIT_TAG ?= $(shell git log --oneline | head -n1 | awk '{print $$1}')
 LOG_LEVEL ?= INFO
 
@@ -24,6 +24,10 @@ ess: GID=root
 ess:
 	$(RUN) /usr/sbin/sshd -D
 	docker ps
+
+daemon: DOCKER_ARGS= -dit --rm -e DISPLAY=$$DISPLAY -u docker -v /tmp/.X11-unix:/tmp/.X11-unix:ro --name="rdev"
+daemon:
+	$(RUN) R
 
 clean:
 	rm -f lotto/*.json lotto/*.logs data/*.csv
