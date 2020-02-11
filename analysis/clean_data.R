@@ -45,6 +45,6 @@ division_data <- results %>%
                 TRUE ~ "lotto")) %>%
     arrange(draw_number)
 
-results_data <- write_csv(here("data/results_data.csv"))
-division_data <- write_csv(here("data/division_data.csv"))
+results_data <- write_csv(results_data, here("data/results_data.csv"))
+division_data <- write_csv(division_data, here("data/division_data.csv"))
 

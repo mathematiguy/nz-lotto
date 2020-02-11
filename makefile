@@ -18,21 +18,12 @@ data/results_data.csv: analysis/clean_data.R lotto/output.json
 lotto/output.json:
 	$(RUN) bash -c "cd lotto && scrapy crawl lottonumbers -o output.json 2>&1 | tee output.logs | grep $(LOG_LEVEL)"
 
-JUPYTER_PASSWORD ?= jupyter
-JUPYTER_PORT ?= 8888
-.PHONY: jupyter
-jupyter: UID=root
-jupyter: GID=root
-jupyter: DOCKER_ARGS=-u $(UID):$(GID) --rm -it -p $(JUPYTER_PORT):$(JUPYTER_PORT) -e NB_USER=$$USER -e NB_UID=$(UID) -e NB_GID=$(GID)
-jupyter:
-	$(RUN) jupyter lab \
-		--ip=0.0.0.0 \
-		--port $(JUPYTER_PORT) \
-		--allow-root \
-		--no-browser \
-		--NotebookApp.password=$(shell $(RUN) \
-			python -c \
-			"from IPython.lib import passwd; print(passwd('$(JUPYTER_PASSWORD)'))")
+ess: DOCKER_ARGS=-d -P -e DISPLAY=$$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix
+ess: UID=root
+ess: GID=root
+ess:
+	$(RUN) /usr/sbin/sshd -D
+	docker ps
 
 clean:
 	rm -f lotto/*.json lotto/*.logs data/*.csv
