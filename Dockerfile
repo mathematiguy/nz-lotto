@@ -22,3 +22,6 @@ RUN pip3 install -r /root/requirements.txt
 RUN Rscript -e 'install.packages("here")'
 RUN Rscript -e 'install.packages("furrr")'
 RUN Rscript -e 'install.packages("jsonlite")'
+RUN Rscript -e 'install.packages("rstan", Ncpus=parallel::detectCores()-1)'
+RUN Rscript -e 'install.packages("brms", Ncpus=parallel::detectCores()-1)'
+
