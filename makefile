@@ -18,13 +18,6 @@ data/results_data.csv: analysis/clean_data.R lotto/output.json
 lotto/output.json:
 	$(RUN) bash -c "cd lotto && scrapy crawl lottonumbers -o output.json 2>&1 | tee output.logs | grep $(LOG_LEVEL)"
 
-ess: DOCKER_ARGS=-d -P -e DISPLAY=$$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix
-ess: UID=root
-ess: GID=root
-ess:
-	$(RUN) /usr/sbin/sshd -D
-	docker ps
-
 daemon: DOCKER_ARGS= -dit --rm -e DISPLAY=$$DISPLAY -u docker -v /tmp/.X11-unix:/tmp/.X11-unix:ro --name="rdev"
 daemon:
 	$(RUN) R
