@@ -109,3 +109,4 @@ notebooks/*
 lotto/*.json
 lotto/*.logs
 .Rhistory
+analysis/*.rds
