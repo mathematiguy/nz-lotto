@@ -20,7 +20,10 @@ results_data <- results %>%
     mutate_at(vars(starts_with("ball"), "bonus", "powerball", starts_with("strike"),
                    "draw_number", "number_of_winners"), as.integer) %>%
     mutate_at(vars("total_prize_pool", "average_prize_per_winner"), as.numeric) %>%
-    arrange(draw_number)
+    arrange(draw_number) %>%
+    select(date, draw_number, ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, bonus,
+           powerball, strike_1, strike_2, strike_3, strike_4, number_of_winners,
+           total_prize_pool, average_prize_per_winner)
 
 division_data <- results %>%
     future_map(function (res) {
@@ -43,7 +46,11 @@ division_data <- results %>%
                 str_detect(matches, "Powerball") ~ "powerball",
                 str_detect(matches, "Exact") ~ "strike",
                 TRUE ~ "lotto")) %>%
-    arrange(draw_number)
+  arrange(draw_number) %>%
+  select(draw_number, game, matches, division, payout, prize, winners, free_ticket) %>%
+  print(n = 30)
+
+names(division_data)
 
 results_data <- write_csv(results_data, here("data/results_data.csv"))
 division_data <- write_csv(division_data, here("data/division_data.csv"))

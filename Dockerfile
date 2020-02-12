@@ -24,4 +24,4 @@ RUN Rscript -e 'install.packages("furrr")'
 RUN Rscript -e 'install.packages("jsonlite")'
 RUN Rscript -e 'install.packages("rstan", Ncpus=parallel::detectCores()-1)'
 RUN Rscript -e 'install.packages("brms", Ncpus=parallel::detectCores()-1)'
-
+RUN Rscript -e 'install.packages("MCMCpack")'
