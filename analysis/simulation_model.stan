@@ -1,20 +1,29 @@
 data {
-  int<lower = 1> K;
-  int<lower = 1> N;
-  real<lower = 0> alpha;
-  int<lower = 1> results[N];
+  // The number of unique balls in the lottery
+  int<lower=1> NBalls;
+  // The number of balls in each draw
+  int<lower=1> NDraws;
+  // The number of draws on record
+  int<lower=1> NSample;
+  // The alpha parameter for the dirichlet distribution
+  real<lower=0> alpha;
+  // The lottery results table
+  matrix<lower=1>[NSample, NDraws] results;
 }
 
 parameters {
-  vector[K] theta;
+  simplex[NBalls] theta;
 }
 
 model {
-  theta ~ dirichlet(rep_vector(alpha, K));
+  for (i in 1:NSample) {
+    theta ~ dirichlet(rep_vector(alpha, NBalls));
+  }
 }
 
 generated quantities {
-  int<lower = 1> ranking[K];
+  int<lower = 1> ranking[NBalls];
   ranking = sort_indices_asc(theta);
-  results = head(ranking, N);
+  //results = head(ranking, N);
 }
+

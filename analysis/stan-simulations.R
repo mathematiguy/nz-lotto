@@ -15,7 +15,7 @@ results <- results_data %>%
 prior_simulations <- stan(
     here('analysis/simulation_model.stan'),
     model_name = 'prior_simulations',
-    data = list(K = 40, N=6, alpha = 1, results = results),
+    data = list(NBalls = 40, NDraws=6, NSample=nrow(results_data), alpha=1, results=results),
     algorithm = 'Fixed_param')
 
 prior_simulations
