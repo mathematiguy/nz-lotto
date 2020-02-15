@@ -1,13 +1,13 @@
 data {
-  int<lower = 1> K;
-  int<lower = 1> N;
+  int<lower = 1> NBalls;
+  int<lower = 1> NDraw;
   real<lower = 0> alpha;
-  int<lower = 1> results[N];
 }
-generated quantities {
-  vector[K] theta = dirichlet_rng(rep_vector(alpha, K));
-  int<lower = 1> ranking[K];
 
+generated quantities {
+  vector[NBalls] theta = dirichlet_rng(rep_vector(alpha, NBalls));
+  int<lower = 1> ranking[NBalls];
+  int<lower = 1> draws[NDraw];
   ranking = sort_indices_asc(theta);
-  results = head(ranking, N);
+  draws = head(ranking, NDraw);
 }
