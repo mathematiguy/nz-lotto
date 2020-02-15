@@ -25,3 +25,4 @@ generated quantities {
   for (i in 1:NBalls)
     ball_prob[i] = mean(theta[,i]);
 }
+
