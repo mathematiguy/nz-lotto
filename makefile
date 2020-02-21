@@ -8,7 +8,7 @@ DOCKER_ARGS ?= --rm
 GIT_TAG ?= $(shell git log --oneline | head -n1 | awk '{print $$1}')
 LOG_LEVEL ?= INFO
 
-all: models/stan_model.rds
+all: models/simulation_model.rds
 
 crawl: lotto/output.json
 
