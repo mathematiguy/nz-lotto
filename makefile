@@ -6,7 +6,7 @@ UID ?= $(shell id -u)
 GID ?= $(shell id -g)
 DOCKER_ARGS ?= --rm
 GIT_TAG ?= $(shell git log --oneline | head -n1 | awk '{print $$1}')
-LOG_LEVEL ?= ERROR
+LOG_LEVEL ?= INFO
 
 all: data/results_data.csv
 
