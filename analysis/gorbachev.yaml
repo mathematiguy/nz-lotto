@@ -1,5 +1,5 @@
 docker: mathematiguy/nz-lotto:ba712ca
 cpus: 4
-triggers:
-  - nz-lotto-analysis
+requires:
+  - nz-lotto-model
 
