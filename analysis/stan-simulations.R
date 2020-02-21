@@ -39,7 +39,7 @@ print(dim(ball_prob))
 ball_probs <- as_tibble(ball_prob)
 
 ball_probs %>%
-    mutate(sims = 1:1000) %>%
+    mutate(sims = 1:4000) %>%
     gather(starts_with("V"), key = "ball", value = "prob") %>%
     mutate(ball = factor(str_remove(ball, "V"), levels = 1:40)) %>%
     ggplot(aes(x = prob, fill = ball)) +
