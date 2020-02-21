@@ -2,6 +2,8 @@
 
 set -ex
 
+export RUN= 
+
 make all
 
 cp data/* /output
