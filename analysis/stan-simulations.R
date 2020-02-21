@@ -19,10 +19,10 @@ ball_counts <- results_data %>%
     count()
 
 prior_simulations <- stan(
-    here('analysis/simulation_model.stan'),
+    here('models/simulation_model.stan'),
     model_name = 'prior_simulations',
     data = list(NBalls = 40, NDraw=6, NSamples = nrow(draws), alpha = 1, draws = draws),
-    chains = 1)
+    chains = 4)
 
 prior_simulations
 
