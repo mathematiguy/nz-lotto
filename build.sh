@@ -7,4 +7,4 @@ export RUN=
 make all
 
 cp data/* /output
-cp models/* /output
+cp models/*.rds /output

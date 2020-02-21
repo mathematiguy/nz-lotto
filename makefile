@@ -8,11 +8,11 @@ DOCKER_ARGS ?= --rm
 GIT_TAG ?= $(shell git log --oneline | head -n1 | awk '{print $$1}')
 LOG_LEVEL ?= INFO
 
-all: data/results_data.csv
+all: models/stan_model.rds
 
 crawl: lotto/output.json
 
-models/stan_model.stan: analysis/stan-simulations.R
+models/simulation_model.rds: analysis/stan-simulations.R
 	$(RUN) Rscript $<
 
 data/results_data.csv: analysis/clean_data.R lotto/output.json
