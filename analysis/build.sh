@@ -4,4 +4,4 @@ set -ex
 
 export RUN= 
 
-ls /input
+ls /input/nz-lotto-model
