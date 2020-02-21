@@ -7,6 +7,7 @@ plan(multiprocess)
 
 results_data <- read_csv(here("data/results_data.csv"))
 division_data <- read_csv(here("data/division_data.csv"))
+ball_probs <- read_csv(here("data/ball_probs.csv"))
 
 results_data %>%
     select_at(vars(starts_with("ball"), 'bonus')) %>%
@@ -55,3 +56,15 @@ results_data %>%
   ggplot(aes(x = number_of_winners, y = total_prize_pool)) +
   geom_point() +
   theme_minimal()
+
+ball_probs %>%
+  mutate(sims = 1:4000) %>%
+  gather(starts_with("V"), key = "ball", value = "prob") %>%
+  mutate(ball = factor(str_remove(ball, "V"), levels = 1:40)) %>%
+  ggplot(aes(x = prob, fill = ball)) +
+  geom_histogram() +
+  facet_wrap(~ball) +
+  geom_vline(xintercept = 1 / 40) +
+  guides(fill = FALSE) +
+  theme_minimal()
+

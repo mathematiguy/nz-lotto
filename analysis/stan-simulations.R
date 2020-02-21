@@ -31,13 +31,4 @@ ball_prob <- extract(prior_simulations)$ball_prob
 
 ball_probs <- as_tibble(ball_prob)
 
-ball_probs %>%
-    mutate(sims = 1:4000) %>%
-    gather(starts_with("V"), key = "ball", value = "prob") %>%
-    mutate(ball = factor(str_remove(ball, "V"), levels = 1:40)) %>%
-    ggplot(aes(x = prob, fill = ball)) +
-    geom_histogram() +
-    facet_wrap(~ball) +
-    geom_vline(xintercept = 1 / 40) +
-    guides(fill = FALSE) +
-    theme_minimal()
+write_csv("data/ball_probs.csv")
