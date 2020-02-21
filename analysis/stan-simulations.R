@@ -24,17 +24,10 @@ prior_simulations <- stan(
     data = list(NBalls = 40, NDraw=6, NSamples = nrow(draws), alpha = 1, draws = draws),
     chains = 4)
 
-prior_simulations
-
 theta <- extract(prior_simulations)$theta
 ranking <- extract(prior_simulations)$ranking
 draws <- extract(prior_simulations)$draws
 ball_prob <- extract(prior_simulations)$ball_prob
-
-print(dim(theta))
-print(dim(ranking))
-print(dim(draws))
-print(dim(ball_prob))
 
 ball_probs <- as_tibble(ball_prob)
 
