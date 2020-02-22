@@ -15,7 +15,7 @@ crawl: lotto/output.json
 models/simulation_model.rds: analysis/stan-simulations.R data/results_data.csv
 	$(RUN) Rscript $<
 
-data/results_data.csv: analysis/clean_data.R lotto/output.json
+data/results_data.csv: scripts/clean_data.R lotto/output.json
 	$(RUN) Rscript $<
 
 lotto/output.json:
