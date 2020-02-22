@@ -8,3 +8,4 @@ cd ..
 make data/results_data.csv
 
 cp data/*.csv /output
+cp lotto/output.json /output

@@ -4,7 +4,8 @@ set -ex
 
 export RUN= 
 
-cp /input/nz-lotto-scraper/lotto.json
+cp /input/nz-lotto-scraper/output.json lotto/output.json
+cp /input/nz-lotto-scraper/*.csv data
 
 cd ..
 make models/simulation_model.rds
