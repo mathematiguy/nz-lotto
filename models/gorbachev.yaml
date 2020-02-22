@@ -3,5 +3,5 @@ cpus: 4
 allows:
   - nz-lotto-scraper
 triggers:
-  - nz-lotto-model
+  - nz-lotto-analysis
 
