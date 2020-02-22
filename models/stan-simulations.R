@@ -31,4 +31,4 @@ ball_prob <- extract(prior_simulations)$ball_prob
 
 ball_probs <- as_tibble(ball_prob)
 
-write_csv("data/ball_probs.csv")
+write_csv(here("data/ball_probs.csv"))
