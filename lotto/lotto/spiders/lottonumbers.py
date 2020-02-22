@@ -19,20 +19,17 @@ class LottonumbersSpider(scrapy.Spider):
         for result_card in result_cards:
             result_url = result_card.xpath("div/h2/a/@href").extract()
             result_url = response.urljoin(result_url[0])
-            logging.info("Found url %s" %result_url)
             yield scrapy.Request(result_url, callback = self.parse_result_page)
 
     def parse_result_page(self, response):
-
-        logging.info("Arrived at %s" %response.url)
         result_dict = {'date': response.url.rsplit("/", 1)[-1]}
-        
+
         # Get the main draw results
-        *main_draw, bonus = response.xpath('//ol[@class="draw-result"]/li/text()').extract()
+        main_draw, bonus = response.xpath('//ol[@class="draw-result"]/li/text()').extract()
         for i, ball in enumerate(main_draw):
         	result_dict['ball_%d' %(i + 1)] = ball
         result_dict['bonus'] = bonus
-        
+
         # Get the sub draw results
         sub_draws = response.xpath('//ol[@class="draw-result draw-result--sub"]')
         for sub_draw in sub_draws:
