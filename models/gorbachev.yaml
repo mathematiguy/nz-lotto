@@ -1,0 +1,5 @@
+docker: mathematiguy/nz-lotto:1b47512
+cpus: 4
+triggers:
+  - nz-lotto-model
+

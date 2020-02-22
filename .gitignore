@@ -110,3 +110,4 @@ lotto/*.json
 lotto/*.logs
 .Rhistory
 models/*.rds
+**/.#*
