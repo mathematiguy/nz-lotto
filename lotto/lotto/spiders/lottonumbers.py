@@ -25,7 +25,7 @@ class LottonumbersSpider(scrapy.Spider):
         result_dict = {'date': response.url.rsplit("/", 1)[-1]}
 
         # Get the main draw results
-        main_draw, bonus = response.xpath('//ol[@class="draw-result"]/li/text()').extract()
+        *main_draw, bonus = response.xpath('//ol[@class="draw-result"]/li/text()').extract()
         for i, ball in enumerate(main_draw):
         	result_dict['ball_%d' %(i + 1)] = ball
         result_dict['bonus'] = bonus

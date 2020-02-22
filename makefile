@@ -19,7 +19,7 @@ data/results_data.csv: analysis/clean_data.R lotto/output.json
 	$(RUN) Rscript $<
 
 lotto/output.json:
-	$(RUN) bash -c "cd lotto && scrapy crawl lottonumbers -o output.json 2>&1 | tee output.logs | grep $(LOG_LEVEL)"
+	$(RUN) bash -c "cd lotto && scrapy crawl lottonumbers -o output.json --loglevel $(LOG_LEVEL)"
 
 daemon: UID=rstudio
 daemon: GID=rstudio
