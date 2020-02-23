@@ -21,8 +21,6 @@ data/results_data.csv: scripts/clean_data.R lotto/output.json
 lotto/output.json:
 	$(RUN) bash -c "cd lotto && scrapy crawl lottonumbers -o output.json --loglevel $(LOG_LEVEL)"
 
-daemon: UID=rstudio
-daemon: GID=rstudio
 daemon: DOCKER_ARGS= -dit --rm -e DISPLAY=$$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro --name="rdev"
 daemon:
 	$(RUN) R
